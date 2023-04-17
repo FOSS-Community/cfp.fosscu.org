@@ -4,6 +4,6 @@ A Universal portal where a user can submit there ideas and as a Organisation, th
 
 
 # Tech Stack
-- Django, DRF
+- Flask
 - Html, CSS, Javascript, TailwindCSS
 - PSQL
