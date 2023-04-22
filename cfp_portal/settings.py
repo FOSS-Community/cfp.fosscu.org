@@ -128,6 +128,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 COMPRESS_ROOT = BASE_DIR / 'static'
 
 COMPRESS_ENABLED = True
-
 STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+
+#AUTHENTICATION BACKEND
 AUTH_USER_MODEL='users.UserModel'
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'users.authentication.EmailAuthBackend',
+]
+

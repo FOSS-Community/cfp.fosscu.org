@@ -7,7 +7,7 @@ class talks(models.Model):
     description=models.TextField(max_length=400)
     domain=models.CharField(max_length=50)
     slides=models.BooleanField(verbose_name="Yes",default=False)
-    username=models.ForeignKey(Profile,on_delete=models.CASCADE)
+    firstname=models.ForeignKey(Profile,on_delete=models.CASCADE)
     duration=models.DurationField()
     availability=models.DateField()
 

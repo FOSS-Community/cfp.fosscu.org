@@ -5,43 +5,43 @@ from django.utils import timezone
 
 class CustomUserManager(UserManager):
 
-    def _create_user(self,first_name,last_name,email,password,**extra):
+    def _create_user(self,firstname,lastname,email,password,**extra):
         if not email:
             raise ValueError('You have not provided a valid email')
         
         email=self.normalize_email(email)
-        if not first_name:
+        if not firstname:
             raise ValueError('You must have a first name')
-        if not last_name:
+        if not lastname:
             raise ValueError('You must have a last name')
         
         user=self.model(
             email=email,
-            first_name=first_name,
-            last_name=last_name,
+            firstname=firstname,
+            lastname=lastname,
             **extra
         )
         user.set_password(password)
         user.save(using=self._db)
         return user
     
-    def create_user(self,first_name=None,last_name=None,email=None,password=None,**extra):
+    def create_user(self,firstname=None,lastname=None,email=None,password=None,**extra):
         extra.setdefault('is_staff',False)
         extra.setdefault('is_superuser',False)
         extra.setdefault('is_active',True)
-        return self._create_user(self,first_name,last_name,email,password,**extra)
+        return self._create_user(self,firstname,lastname,email,password,**extra)
     
-    def create_superuser(self,first_name=None,last_name=None,email=None,password=None,**extra):
+    def create_superuser(self,firstname=None,lastname=None,email=None,password=None,**extra):
         extra.setdefault('is_staff',True)
         extra.setdefault('is_superuser',True)
         extra.setdefault('is_active',True)
-        return self._create_user(self,first_name,last_name,email,password,**extra)
+        return self._create_user(self,firstname,lastname,email,password,**extra)
 
 
 class UserModel(AbstractBaseUser,PermissionsMixin):
-    first_name=models.CharField(max_length=100,blank=False,default='')
-    last_name=models.CharField(max_length=100,blank=False,default='')
-    email=models.EmailField(blank=False,unique=True,default='')
+    firstname=models.CharField(max_length=100,default='')
+    lastname=models.CharField(max_length=100,default='')
+    email=models.EmailField(unique=True,default='')
     is_active=models.BooleanField(default=True)
     is_superuser=models.BooleanField(default=False)
     is_staff=models.BooleanField(default=False)
@@ -58,7 +58,7 @@ class UserModel(AbstractBaseUser,PermissionsMixin):
         verbose_name_plural='UserModel'
 
     def get_full_name(self):
-        return self.first_name + self.last_name
+        return self.firstname + self.lastname
 
 
 
@@ -68,8 +68,8 @@ class UserModel(AbstractBaseUser,PermissionsMixin):
 
 
 class Profile(models.Model):
-    first_name=models.CharField(max_length=100,null=False,default='')
-    last_name=models.CharField(max_length=100,null=False,default='')
+    firstname=models.CharField(max_length=100,null=False,default='')
+    lastname=models.CharField(max_length=100,null=False,default='')
     email=models.EmailField(null=False,unique=True)
     mobile=models.BigIntegerField()
     about=models.TextField(max_length=400)
