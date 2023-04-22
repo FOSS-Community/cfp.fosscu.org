@@ -1,5 +1,5 @@
 from django.db import models
-from  users.models import Users
+from  users.models import Profile
 
 # Create your models here.
 class talks(models.Model):
@@ -7,7 +7,7 @@ class talks(models.Model):
     description=models.TextField(max_length=400)
     domain=models.CharField(max_length=50)
     slides=models.BooleanField(verbose_name="Yes",default=False)
-    username=models.ForeignKey(Users,on_delete=models.CASCADE)
+    username=models.ForeignKey(Profile,on_delete=models.CASCADE)
     duration=models.DurationField()
     availability=models.DateField()
 
