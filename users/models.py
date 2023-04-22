@@ -23,18 +23,19 @@ class CustomUserManager(UserManager):
         )
         user.set_password(password)
         user.save(using=self._db)
-        return _create_user(self,first_name,last_name,email,password,**extra):
+        return user
     
     def create_user(self,first_name=None,last_name=None,email=None,password=None,**extra):
         extra.setdefault('is_staff',False)
         extra.setdefault('is_superuser',False)
         extra.setdefault('is_active',True)
-        return     
+        return self._create_user(self,first_name,last_name,email,password,**extra)
+    
     def create_superuser(self,first_name=None,last_name=None,email=None,password=None,**extra):
         extra.setdefault('is_staff',True)
         extra.setdefault('is_superuser',True)
         extra.setdefault('is_active',True)
-        return _create_user(self,first_name,last_name,email,password,**extra)
+        return self._create_user(self,first_name,last_name,email,password,**extra)
 
 
 class UserModel(AbstractBaseUser,PermissionsMixin):
