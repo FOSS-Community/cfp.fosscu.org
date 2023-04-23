@@ -48,6 +48,6 @@ def sign_up(response):
 def forgot_password(response):
     return render(response, "users/screens/forgot_password.html", {})
 
-@login_required
+
 def verify(response):
     return render(response, "users/screens/verify.html", {})

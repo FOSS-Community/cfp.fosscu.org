@@ -16,9 +16,6 @@ class EmailAuthBackend:
         except UserModel.DoesNotExist:
             return None
         
-        if user.check_password(password):
-            return user
-        return None
     
     def get_user(self,user_id):
         UserModel=get_user_model()
