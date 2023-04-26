@@ -9,9 +9,12 @@ from django.contrib.auth.decorators import login_required
 def Login(response):
     if response.method=='POST':
         email=response.POST.get('email')
+        print(email)
         password=response.POST.get('password')
-        auth_backend=EmailAuthBackend()
-        user=auth_backend.authenticate(email,password)
+        print(password)
+        # auth_backend=EmailAuthBackend()
+        user=EmailAuthBackend.authenticate(email,password)
+        print(user)
         if user is not None:
             if user.is_active:
                 login(response,user)

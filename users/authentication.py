@@ -12,9 +12,9 @@ class EmailAuthBackend:
             user=UserModel.objects.get(email=username)
             if user.check_password(password):
                 return user
-            return None
+            return "phli condition false"
         except UserModel.DoesNotExist:
-            return None
+            return "dusri condition false"
         
     
     def get_user(self,user_id):
@@ -22,6 +22,5 @@ class EmailAuthBackend:
         try:
             return UserModel.objects.get(pk=user_id)
         except UserModel.DoesNotExist:
-            return None
-
-        
+            return "teesri condition false"
+    
