@@ -1,26 +1,24 @@
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth import get_user_model
 
-class EmailAuthBackend:
-    '''Custom Authentication Backend
-        Allow users to authenticate using email'''
-    
-    def authenticate(self,response,username=None,password=None,**extra_fields):
-        
-        UserModel=get_user_model()
+
+class EmailAuthBackend(BaseBackend):
+    def authenticate(self, response, email=None, password=None, **kwargs):
+        UserModel = get_user_model()
         try:
-            user=UserModel.objects.get(email=username)
-            if user.check_password(password):
-                return user
-            return "phli condition false"
+            user = UserModel.objects.get(email=email)
         except UserModel.DoesNotExist:
-            return "dusri condition false"
+            return None
         
+        if user.check_password(password):
+            return user
+        else:
+            return None
+
     
     def get_user(self,user_id):
-        UserModel=get_user_model()
         try:
-            return UserModel.objects.get(pk=user_id)
-        except UserModel.DoesNotExist:
-            return "teesri condition false"
+            return get_user_model().objects.get(pk=user_id)
+        except get_user_model().DoesNotExist:
+            return None
     
