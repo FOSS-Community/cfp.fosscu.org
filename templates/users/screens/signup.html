@@ -31,7 +31,8 @@
                     <h1 class="text-white">
                         Sing Up!
                     </h1>
-                    <form class="space-y-4 md:space-t-6" action="#">
+                    <form class="space-y-4 md:space-t-6" action="#" method="post">
+                        {% csrf_token %}
                         <div class="flex space-x-2">
                             <div>
                                 <input type="text" name="firstname" id="firstname"
@@ -54,6 +55,7 @@
                                 class="bg-[#000300] border border-gray-500  sm:text-sm rounded-lg  block w-full p-2.5   placeholder-gray-400 text-white   focus:border-[#0dff1c]"
                                 required="">
                         </div>
+                        
 
                         <div class="flex items-center justify-between">
 
@@ -62,7 +64,7 @@
                             class=" w-full text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center  bg-[#008000] hover:bg-[#079b07] border border-[#079b07]">Sign Up</button>
                         <div>
                             <p class="text-sm font-light text-gray-400">
-                                Don’t have an account yet? <a href="/users/templates/users/login.html"
+                                Already have an account? <a href="{% url 'login' %}"
                                     class="font-medium  hover:underline text-gray-300">Log In</a>
                             </div>
                         </a>
