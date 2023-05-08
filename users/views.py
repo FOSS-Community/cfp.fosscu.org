@@ -10,7 +10,7 @@ def Login(response):
     if response.method=='POST':
         email=response.POST.get('email')
         password=response.POST.get('password')
-        user=EmailAuthBackend.authenticate(email,password)
+        user=EmailAuthBackend.authenticate(response,email,password,backend='users.authentication.EmailAuthBackend')
         print(user)
         if user is not None:
             if user.is_active:
@@ -28,8 +28,8 @@ def Login(response):
 
 def sign_up(response):
     if response.method=='POST':
-        firstname=response.POST.get('firstname')
-        lastname=response.POST.get('lastname')
+        first_name=response.POST.get('firstname')
+        last_name=response.POST.get('lastname')
         email=response.POST.get('email')
         password=response.POST.get('password')
         
@@ -37,8 +37,8 @@ def sign_up(response):
             return HttpResponse('User with this email already exist')
         else:
             UserModel.objects.create(
-                firstname=firstname,
-                lastname=lastname,
+                first_name=first_name,
+                last_name=last_name,
                 email=email,
                 password=password,
                 )
