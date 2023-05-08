@@ -136,7 +136,7 @@ STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 #AUTHENTICATION BACKEND
 AUTH_USER_MODEL='users.UserModel'
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
+    #'django.contrib.auth.backends.ModelBackend',
     'users.authentication.EmailAuthBackend',
 ]
 
