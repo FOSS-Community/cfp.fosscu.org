@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "users.apps.UsersConfig",
-    "proposals.apps.Proposals.Config",
+    "proposals.apps.ProposalsConfig",
     "compressor",
     "django.contrib.admin",
     "django.contrib.auth",
