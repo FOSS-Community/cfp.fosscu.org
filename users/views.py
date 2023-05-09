@@ -52,7 +52,7 @@ def forgot_password(response):
         email = response.POST.get('email')
         
         if UserModel.objects.filter(email=email).exists():
-            return redirect('verify')
+            return redirect('verify/?email='+email)
     return render(response, "users/screens/forgot_password.html", {})
 
 
