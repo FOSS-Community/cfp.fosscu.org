@@ -4,7 +4,9 @@ from .authentication import EmailAuthBackend
 from django.contrib.auth import logout,login
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-# Create your views here.
+from django.core.mail import BadHeaderError, send_mail
+import secrets, string
+
 
 def Login(response):
     if response.method=='POST':
@@ -15,14 +17,14 @@ def Login(response):
         if user is not None:
             if user.is_active:
                 login(response,user)
-                return redirect('verify')
+                return redirect('verify/?email='+email)
             else:
                 return HttpResponse('User is not active')
         else:
-            return redirect('login')
+            return redirect('login', {email: email})
         
         
-    return render(response, "users/screens/login.html", {})
+    return render(response, "users/screens/login.html")
 
 
 
@@ -46,8 +48,16 @@ def sign_up(response):
     return render(response, "users/screens/signup.html", {})
 
 def forgot_password(response):
+    if response.method=='POST':
+        email = response.POST.get('email')
+        
+        if UserModel.objects.filter(email=email).exists():
+            return redirect('verify')
     return render(response, "users/screens/forgot_password.html", {})
 
 
-def verify(response):
-    return render(response, "users/screens/verify.html", {})
+def verify(request):
+    code = ''.join(secrets.choice(list(string.ascii_uppercase+'0123456789')) for n in range(6))
+    email = request.GET.get('email')
+            
+    return render(request, "users/screens/verify.html", { "email": email})
