@@ -21,8 +21,8 @@ class UserModel(AbstractUser,PermissionsMixin):
     objects=CustomUserManager()
     USERNAME_FIELD='email'
     EMAIL_FIELD='email'
-    REQUIRED_FIELDS=[]    ##kahli kyu hai ye ??
-
+    REQUIRED_FIELDS=[]    
+    
     class Meta():
         verbose_name='UserModel'
         verbose_name_plural='UserModel'
@@ -32,8 +32,6 @@ class UserModel(AbstractUser,PermissionsMixin):
 
 
 
-
-#Profile class not in use currently
 
 class Profile(models.Model):
     firstname=models.CharField(max_length=100,null=False,default='')

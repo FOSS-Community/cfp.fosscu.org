@@ -11,7 +11,6 @@ def Login(response):
         email=response.POST.get('email')
         password=response.POST.get('password')
         user=EmailAuthBackend.authenticate(response,email,password,backend='users.authentication.EmailAuthBackend')
-        print(user)
         if user is not None:
             if user.is_active:
                 login(response,user)
