@@ -1,41 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser,PermissionsMixin,BaseUserManager
 from django.utils import timezone
+from .managers import CustomUserManager
+
+
 # Create your models here.
-
-class CustomUserManager(BaseUserManager):
-
-    def _create_user(self,first_name,last_name,email,password,**extra):
-        if not email:
-            raise ValueError('You have not provided a valid email')
-        
-        email=self.normalize_email(email)
-        if not first_name and not extra['is_superuser']:
-            raise ValueError('You must have a first name')
-        if not last_name and not extra['is_superuser']:
-            raise ValueError('You must have a last name')
-        
-        user=self.model(
-            email=email,
-            first_name=first_name,
-            last_name=last_name,
-            **extra
-        )
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-    
-    def create_user(self,first_name=None,last_name=None,email=None,password=None,**extra):
-        extra.setdefault('is_staff',False)
-        extra.setdefault('is_superuser',False)
-        extra.setdefault('is_active',True)
-        return self._create_user(first_name,last_name,email,password,**extra)
-    
-    def create_superuser(self,first_name='admin',last_name='',email=None,password=None,**extra):
-        extra.setdefault('is_staff',True)
-        extra.setdefault('is_superuser',True)
-        extra.setdefault('is_active',True)
-        return self._create_user(first_name,last_name,email,password,**extra)
 
 
 class UserModel(AbstractUser,PermissionsMixin):
@@ -52,7 +21,7 @@ class UserModel(AbstractUser,PermissionsMixin):
     objects=CustomUserManager()
     USERNAME_FIELD='email'
     EMAIL_FIELD='email'
-    REQUIRED_FIELDS=[]
+    REQUIRED_FIELDS=[]    ##kahli kyu hai ye ??
 
     class Meta():
         verbose_name='UserModel'
@@ -64,9 +33,7 @@ class UserModel(AbstractUser,PermissionsMixin):
 
 
 
-
-
-
+#Profile class not in use currently
 
 class Profile(models.Model):
     firstname=models.CharField(max_length=100,null=False,default='')
@@ -78,8 +45,4 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.username
-    
-
-
-
     
