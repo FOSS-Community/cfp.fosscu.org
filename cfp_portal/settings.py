@@ -82,10 +82,9 @@ DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql',
     'HOST': 'localhost',
-    'NAME': 'postgres',
+    'NAME': 'cfp_portal',
     'USER': 'postgres',
-    'PORT': 5432,
-    'PASSWORD': 'mysecretpassword',
+    'PASSWORD': 'postgres',
   }
 }
 
