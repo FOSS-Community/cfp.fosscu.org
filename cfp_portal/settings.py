@@ -77,14 +77,16 @@ WSGI_APPLICATION = "cfp_portal.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 import os
+import dotenv 
+dotenv.load_dotenv()
 
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql',
-    'HOST': 'localhost',
-    'NAME': 'cfp_portal',
-    'USER': 'postgres',
-    'PASSWORD': 'postgres',
+    'HOST': os.getenv('POSTGRES_HOST'),
+    'NAME': os.getenv('POSTGRES_DBNAME'),
+    'USER': os.getenv('POSTGRES_USER'),
+    'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
   }
 }
 
