@@ -32,8 +32,8 @@
                     </h1>
                     <form class="space-y-4 md:space-t-6" action="#">
                         <div>
-                            <p for="email" class="text-white pb-2 ">Verification code sent to <span class="hover:underline "> user@gmail.com</span></p>
-                            <input type="email" name="email" id="email"
+                            <p for="email" class="text-white pb-2 ">Verification code sent to <span class="hover:underline "> {{email }} </span></p>
+                            <input name="code" id="code" maxlength="6"
                                 class="bg-[#000300] border border-gray-500  sm:text-sm rounded-lg  block w-full p-2.5   placeholder-gray-400 text-white   focus:border-[#0dff1c] "
                                 placeholder="Enter your 6 digit code *" required="">
                         </div>
