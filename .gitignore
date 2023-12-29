@@ -140,3 +140,9 @@ cython_debug/
 
 #db of django
 db.sqlite3
+
+#PyCharm stuff
+.idea/
+
+#Visual Studio Code
+.vscode/
