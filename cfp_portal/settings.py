@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,7 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles", 
+    "django.contrib.staticfiles",
 ]
 
 MIDDLEWARE = [
@@ -57,8 +58,7 @@ ROOT_URLCONF = "cfp_portal.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates']
-        ,
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -76,16 +76,16 @@ WSGI_APPLICATION = "cfp_portal.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-import os
 
 DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.postgresql',
-    'HOST': os.environ['DB_HOST'],
-    'NAME': os.environ['DB_NAME'],
-    'USER': os.environ['DB_USER'],
-    'PASSWORD':os.environ['DB_PASS'],
-  }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': "localhost",
+        'NAME': "cfp-portal-db",
+        'USER': "postgres",
+        'PASSWORD': "postgres",
+        'PORT': "5432",
+    }
 }
 
 
@@ -134,10 +134,9 @@ COMPRESS_ROOT = BASE_DIR / 'static'
 COMPRESS_ENABLED = True
 STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 
-#AUTHENTICATION BACKEND
-AUTH_USER_MODEL='users.UserModel'
+# AUTHENTICATION BACKEND
+AUTH_USER_MODEL = 'users.UserModel'
 AUTHENTICATION_BACKENDS = [
-    #'django.contrib.auth.backends.ModelBackend',
+    # 'django.contrib.auth.backends.ModelBackend',
     'users.authentication.EmailAuthBackend',
 ]
-
