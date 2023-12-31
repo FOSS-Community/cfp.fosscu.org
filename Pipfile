@@ -1,0 +1,14 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "==4.1.6"
+django-compressor = ">=4.3"
+psycopg2 = ">=2.8.6"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
