@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,15 +32,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "users.apps.UsersConfig",
+    "proposals.apps.ProposalsConfig",
+    "compressor",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "users",
-    "compressor",
-    
 ]
 
 MIDDLEWARE = [
@@ -57,8 +58,7 @@ ROOT_URLCONF = "cfp_portal.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates']
-        ,
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -76,18 +76,16 @@ WSGI_APPLICATION = "cfp_portal.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-import os
-import dotenv 
-dotenv.load_dotenv()
 
 DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.postgresql',
-    'HOST': os.getenv('POSTGRES_HOST'),
-    'NAME': os.getenv('POSTGRES_DBNAME'),
-    'USER': os.getenv('POSTGRES_USER'),
-    'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-  }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': "localhost",
+        'NAME': "cfp-portal-db",
+        'USER': "postgres",
+        'PASSWORD': "postgres",
+        'PORT': "5432",
+    }
 }
 
 
@@ -124,7 +122,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
 STATIC_URL = "static/"
 
 # Default primary key field type
@@ -137,10 +134,9 @@ COMPRESS_ROOT = BASE_DIR / 'static'
 COMPRESS_ENABLED = True
 STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 
-#AUTHENTICATION BACKEND
-AUTH_USER_MODEL='users.UserModel'
+# AUTHENTICATION BACKEND
+AUTH_USER_MODEL = 'users.UserModel'
 AUTHENTICATION_BACKENDS = [
-    #'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
     'users.authentication.EmailAuthBackend',
 ]
-
