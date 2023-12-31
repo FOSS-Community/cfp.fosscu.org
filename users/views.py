@@ -6,6 +6,7 @@ from django.core.mail import BadHeaderError, send_mail
 
 from .models import *
 
+from typing import Union
 import secrets
 import string
 
@@ -15,7 +16,7 @@ def login_view(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         user = authenticate(request, email=email, password=password)
-        
+
         if user is not None:
             login(request, user)
             return redirect('verify')
