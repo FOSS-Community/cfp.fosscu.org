@@ -4,9 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "==4.1.6"
-django-compressor = ">=4.3"
-psycopg2 = ">=2.8.6"
+asgiref = "==3.7.2"
+django = "==5.0"
+django-appconf = "==1.0.6"
+django-compressor = "==4.4"
+psycopg2-binary = "==2.9.9"
+rcssmin = "==1.1.1"
+rjsmin = "==1.2.1"
+sqlparse = "==0.4.4"
 
 [dev-packages]
 
