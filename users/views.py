@@ -3,6 +3,8 @@ from django.contrib.auth import logout, login, authenticate
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.mail import BadHeaderError, send_mail
+from django.contrib.auth import get_user_model
+
 
 from .models import *
 
@@ -10,6 +12,8 @@ from typing import Union
 import secrets
 import string
 
+
+UserModel = get_user_model()
 
 def login_view(request):
     if request.method == 'POST':
@@ -36,7 +40,7 @@ def sign_up(response):
         if UserModel.objects.filter(email=email).exists():
             return HttpResponse('User with this email already exist')
         else:
-            UserModel.objects.create(
+            user = UserModel.objects.create_user(
                 first_name=first_name,
                 last_name=last_name,
                 email=email,
