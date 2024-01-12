@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.mail import BadHeaderError, send_mail
 from django.contrib.auth import get_user_model
+from django.conf import settings
 
 
 from .models import *
@@ -23,7 +24,24 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('verify')
+
+            code = ''.join(secrets.choice(list(string.ascii_uppercase+'0123456789')) for n in range(6))
+
+            request.session['code'] = code
+
+            # request.session['code'] = code
+
+            send_mail(
+            subject="Hellooooo",
+            message=f"your verification code is {code}",
+            from_email=settings.DEFAULT_FROM_EMAIL, 
+            recipient_list=[email], 
+            fail_silently=False,       
+        )  
+        
+            # return redirect('verify/', match)
+            return redirect('verify/')
+            
         else:
             return HttpResponse('User does not exist')
 
@@ -60,8 +78,18 @@ def forgot_password(response):
 
 
 def verify(request):
-    code = ''.join(secrets.choice(
-        list(string.ascii_uppercase+'0123456789')) for n in range(6))
-    email = request.GET.get('email')
 
-    return render(request, "users/screens/verify.html", {"email": email})
+    code_from_session = request.session.get('code')
+    
+    
+    if request.method == 'POST':
+
+        email_code_verification = request.POST.get('otp')
+
+        if email_code_verification == code_from_session:
+            return HttpResponse('verified')
+        
+        else:
+            return HttpResponse('error')
+
+    return render(request, 'users/screens/verify.html')   

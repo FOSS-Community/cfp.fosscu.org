@@ -30,10 +30,11 @@
                         Let's verify you Ideator before
                         <span class="block"> knowing your world changing idea !</span>
                     </h1>
-                    <form class="space-y-4 md:space-t-6" action="#">
+                    <form class="space-y-4 md:space-t-6" action="#" method="post">
+                        {% csrf_token %}
                         <div>
                             <p for="email" class="text-white pb-2 ">Verification code sent to <span class="hover:underline "> {{email }} </span></p>
-                            <input name="code" id="code" maxlength="6"
+                            <input name="otp" id="otp" maxlength="6"
                                 class="bg-[#000300] border border-gray-500  sm:text-sm rounded-lg  block w-full p-2.5   placeholder-gray-400 text-white   focus:border-[#0dff1c] "
                                 placeholder="Enter your 6 digit code *" required="">
                         </div>

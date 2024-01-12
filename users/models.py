@@ -50,6 +50,7 @@ class UserModel(AbstractUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
     last_login = models.DateTimeField(blank=True, null=True)
+  
 
     objects: AbstractUser = CustomUserManager()
     USERNAME_FIELD = "email"
@@ -71,6 +72,7 @@ class Profile(models.Model):
     mobile = models.BigIntegerField()
     about = models.TextField(max_length=400)
     verified = models.BooleanField(verbose_name="verified", default=False)
+    
 
     def __str__(self) -> str:
         return self.username
