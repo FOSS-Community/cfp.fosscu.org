@@ -1,0 +1,23 @@
+[project]
+name = "cfp-portal"
+version = "0.1.0"
+description = "A universal portal where users can submits their proposals to FOSS-Community."
+authors = [
+    {name = "Sam", email = "asamadans@gmail.com"},
+]
+dependencies = [
+    "django>=5.0.1",
+    "django-compressor>=4.4",
+    "psycopg2-binary>=2.9.9",
+]
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+package-type = "library"
