@@ -5,17 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import BadHeaderError, send_mail
 from django.contrib.auth import get_user_model
 from django.conf import settings
-
-
-
-
 from .models import *
-
-
 from typing import Union
 import secrets
 import string
-
 
 
 
@@ -28,14 +21,10 @@ def login_view(request):
        password = request.POST.get('password')
        user = authenticate(request, email=email, password=password)
 
-
        if user is not None:
            login(request, user)
-
            code = ''.join(secrets.choice(list(string.ascii_uppercase+'0123456789')) for n in range(6))
-
-           request.session['code'] = code
-
+           request.session['code'] = code 
            send_mail(
            subject="Hellooooo",
            message=f"your verification code is {code}",
@@ -43,13 +32,9 @@ def login_view(request):
            recipient_list=[email],
            fail_silently=False,      
        ) 
-      
            return redirect('verify/')
-          
        else:
            return HttpResponse('User does not exist')
-
-
    return render(request, "users/screens/login.html", {})
 
 
@@ -91,18 +76,13 @@ def forgot_password(response):
 
 
 def verify(request):
+   code_from_session = request.session.get('code') 
 
-   code_from_session = request.session.get('code')
-  
    if request.method == 'POST':
-
        email_code_verification = request.POST.get('otp')
-
-
        if email_code_verification == code_from_session:
            return HttpResponse('verified') 
        else:
            return HttpResponse('error')
-
    return render(request, 'users/screens/verify.html')  
 
